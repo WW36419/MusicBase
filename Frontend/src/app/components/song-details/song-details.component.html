@@ -1,0 +1,40 @@
+<div class="song-container">
+    @if (name === '') {
+        <h1>Nie ma takiej piosenki w bazie danych!</h1>
+    } @else {
+        <h1>{{name}}</h1>
+        @for (artist of artist_list; track artist) {
+            @if (artist.id | artistCheck | async) {
+                <h3 [routerLink]="['/artist/'+artist.id]" class="artist-link">{{artist.name}}</h3>
+            } @else {
+                <h3>{{artist.name}}</h3>
+            }
+        }
+        @if (album_name !== null) {
+            <h5 [routerLink]="['/album/'+album_id]">{{album_name}}</h5>
+        }
+        <p>@if (explicit === "True") {18+}</p>
+        <img [src]="image_url" class="card-img-top">
+        @if (user_id !== '') {
+            @if (!isFavourite) {
+                <div class="col-xs-offset-3 col-xs-10">
+                    <button (click)="addToFavourites()" name="favourite" class="btn btn-primary">Polub</button>
+                </div>
+            } @else {
+                <div class="col-xs-offset-3 col-xs-10">
+                    <button (click)="delFromFavourites()" name="unfavourite" class="btn btn-primary">Usuń z polubionych</button>
+                </div>
+            }
+        } @else {
+            <p>Zaloguj się, by polubić tą piosenkę</p>
+        }
+
+        <div class="details card">
+            <p>Typ piosenki - {{song_type}}</p>
+            <!-- <p>Długość - {{duration_min}}:@if (duration_sec < 10) {0}{{duration_sec}}</p> -->
+            <p>Data wydania - {{release_date}}</p>
+            <p>Popularność - {{popularity}}%</p>
+        </div>
+    }
+    
+</div>

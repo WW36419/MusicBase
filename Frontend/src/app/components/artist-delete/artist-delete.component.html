@@ -1,0 +1,27 @@
+<div>
+    <form [formGroup]="artistPick" (ngSubmit)="deleteArtist()">
+        <fieldset>
+            <legend>Usuń artystę:</legend>
+            <div>
+                <input
+                    [(ngModel)]="artistQuery"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="updateSearchedArtists()"
+                    id="searchArtists"
+                    type="search"
+                    class="form-control"
+                >
+            </div>
+            <div class="input-group"><label for="artists"></label>
+                <select class="form-control" id="artist" formControlName="artist_id" size="4">
+                    @for (item of searched_artists; track item) {
+                        <option [ngValue]="item.id">{{item.name}}</option>
+                    }
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit" [disabled]="!artistPick.valid">Usuń artystę z MusicBase</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

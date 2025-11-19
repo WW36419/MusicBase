@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+
+  angular:
+    build: Frontend
+    ports:
+      - "4200:4200"
+    depends_on:
+      - express
+  
+  express:
+    build: Backend
+    ports:
+      - "3100:3100"
+    depends_on:
+      - postgres
+  
+  postgres:
+    build: Database
+    shm_size: 128mb
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+volumes:
+  db_data:
+  

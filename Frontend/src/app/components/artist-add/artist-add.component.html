@@ -1,0 +1,58 @@
+<div>
+    <form [formGroup]="artistAddForm" (ngSubmit)="addArtist()">
+        <fieldset>
+            <legend>Dodaj nową artystę:</legend>
+            <div class="input-group"><label for="name"></label>
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nazwa...">
+            </div>
+            
+            @if (genres.length > 0) {
+                <div>
+                    <h4>Gatunki:</h4>
+                    @for (genre of genres; track genre) {
+                        <div class="card">
+                            <p>{{genre}}</p>
+                        </div>
+                    }
+                </div>
+            }
+            <div>
+                <form [formGroup]="genreForm" (ngSubmit)="pushGenre()">
+                    <fieldset>
+                        <legend>Dodaj gatunek muzyczny wykonywany przez artystę:</legend>
+                        <div class="input-group"><label for="genre"></label>
+                            <input type="text" class="form-control" id="genre" formControlName="genre" placeholder="Gatunek... (np. pop, rap, rock)">
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="submit" [disabled]="!genreForm.valid">Dodaj gatunek</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="input-group"><label for="artist_type">Typ artysty: </label>
+                <select class="form-control" id="artist_type" formControlName="type">
+                    <option value="-" selected>-</option>
+                    <option value="singer">Solista/Solistka</option>
+                    <option value="duo">Duet</option>
+                    <option value="band">Zespół</option>
+                    <option value="raper">Raper</option>
+                    <option value="DJ">DJ</option>
+                </select>
+            </div>
+            <div class="input-group"><label for="popularity">Popularność (od 0 do 100): </label>
+                <input type="number" class="form-control" id="popularity" formControlName="popularity" min="0" max="100">
+            </div>
+            <div class="input-group"><label for="followers">Liczba słuchaczy (do 1 000 000 000): </label>
+                <input type="number" class="form-control" id="followers" formControlName="followers" min="0" max="1000000000">
+            </div>
+            <div class="input-group"><label for="image_url">Link do obrazu artysty (długość max. 200): </label>
+                <input type="url" class="form-control" id="image_url" formControlName="image_url" maxlength="200">
+            </div>
+
+            <div>
+                <button class="btn btn-primary" type="submit" [disabled]="!artistAddForm.valid">Dodaj</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

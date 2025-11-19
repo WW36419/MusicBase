@@ -1,0 +1,10 @@
+<h3>TOP 10 Najpopularniejszych Piosenek</h3>
+@for (item of top10_songs$; track item) {
+    <song-item
+        [songId]="item.id"
+        [songName]="item.name"
+        [albumId]="item.album_id"
+        [artists]="item.artists"
+        [explicit]="item.explicit"
+    />
+}

@@ -1,0 +1,21 @@
+
+* {
+    padding: 10px
+}
+
+.song-container {
+    margin: 0 10%
+}
+
+img, .details, form {
+    width: 400px;
+}
+
+.artist-link, h5 {
+    color: #00F;
+    text-decoration: underline;
+}
+
+.artist-link:hover, h5:hover {
+    cursor: pointer;
+}

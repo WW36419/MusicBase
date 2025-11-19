@@ -1,0 +1,18 @@
+<div>
+    @if (fav_songs$.length > 0) {
+        <h3>Polubione piosenki:</h3>
+        @for (item of fav_songs$; track item) {
+            @if (item !== null) {
+                    <song-item 
+                        [songId]="item.id"
+                        [songName]="item.name"
+                        [albumId]="item.album_id"
+                        [artists]="item.artists"
+                        [explicit]="item.explicit"
+                    />
+            }
+        }
+    } @else {
+        <h3>Jeszcze nie polubiłeś żadnej piosenki!</h3>
+    }
+</div>

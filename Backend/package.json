@@ -1,0 +1,35 @@
+{
+  "name": "music_base_backend",
+  "version": "1.0.0",
+  "description": "Server for a music database web app",
+  "author": "Wiktor Wojtanowski",
+  "license": "ISC",
+  "scripts": {
+    "dev": "ts-node ./lib/index.ts",
+    "watch": "nodemon",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "1.20.1",
+    "cors": "^2.8.5",
+    "express": "4.18.2",
+    "joi": "17.12.2",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "1.10.0",
+    "pg": "^8.14.1"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.14",
+    "@types/jsonwebtoken": "^9.0.8",
+    "@types/morgan": "1.9.3",
+    "@types/node": "^14.18.33",
+    "@types/pg": "^8.11.11",
+    "node-gyp": "^6.1.0",
+    "nodemon": "^3.1.0",
+    "ts-node": "10.9.1",
+    "typescript": "4.9.3"
+  }
+}

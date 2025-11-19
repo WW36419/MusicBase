@@ -1,0 +1,54 @@
+<div class="container">
+    <div>
+        <h3>Dodaj:</h3>
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleAddSong()" name="toggle_add_song" class="btn btn-primary">Dodaj piosenkę</button>
+        </div>
+        @if (showAddSong) {
+            <song-add />
+        }
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleAddAlbum()" name="toggle_add_album" class="btn btn-primary">Dodaj album</button>
+        </div>
+        @if (showAddAlbum) {
+            <album-add />
+        }
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleAddArtist()" name="toggle_add_artist" class="btn btn-primary">Dodaj artystę</button>
+        </div>
+        @if (showAddArtist) {
+            <artist-add />
+        }
+
+    </div>
+
+
+    <div>
+        <h3>Usuń:</h3>
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleDelSong()" name="toggle_delete_song" class="btn btn-primary">Usuń piosenkę</button>
+        </div>
+        @if (showDelSong) {
+            <song-delete />
+        }
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleDelAlbum()" name="toggle_delete_album" class="btn btn-primary">Usuń album</button>
+        </div>
+        @if (showDelAlbum) {
+            <album-delete />
+        }
+
+        <div class="col-xs-offset-3 col-xs-10">
+            <button (click)="toggleDelArtist()" name="toggle_delete_artist" class="btn btn-primary">Usuń artystę</button>
+        </div>
+        @if (showDelArtist) {
+            <artist-delete />
+        }
+    </div>
+
+</div>

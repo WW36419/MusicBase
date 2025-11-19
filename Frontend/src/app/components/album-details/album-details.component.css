@@ -1,0 +1,21 @@
+
+* {
+    padding: 10px
+}
+
+.album-container {
+    margin: 0 10%
+}
+
+.artist-link {
+    color: #00F;
+    text-decoration: underline;
+}
+
+.artist-link:hover {
+    cursor: pointer;
+}
+
+img {
+    width: 300px
+}

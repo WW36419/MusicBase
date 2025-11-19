@@ -1,0 +1,29 @@
+<div>
+    <form [formGroup]="albumPick" (ngSubmit)="deleteAlbum()">
+        <fieldset>
+            <legend>Usuń album:</legend>
+            <div>
+                <input
+                    [(ngModel)]="albumQuery"
+                    [ngModelOptions]="{standalone: true}"
+                    (ngModelChange)="updateSearchedAlbums()"
+                    id="searchAlbums"
+                    type="search"
+                    class="form-control"
+                >
+            </div>
+            <div class="input-group"><label for="albums"></label>
+                <select class="form-control" id="album" formControlName="album_id" size="4">
+                    @for (item of searched_albums; track item) {
+                        <option [ngValue]="item.id">{{item.name}} -
+                            @for (artist of item.artists; track artist) { {{artist.name}};}
+                        </option>
+                    }
+                </select>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit" [disabled]="!albumPick.valid">Usuń album z MusicBase</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

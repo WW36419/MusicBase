@@ -1,0 +1,30 @@
+<h3>Szukaj:</h3>
+
+<select [(ngModel)]="musicType" class="form-control">
+    <option value="song">Piosenka</option>
+    <option value="album">Album</option>
+    <option value="artist">Artysta</option>
+</select>
+
+<div>
+    @if (musicType !== "") {
+        <input
+            [(ngModel)]="musicQuery"
+            (ngModelChange)="updateMusicList()"
+            id="musicSearch"
+            type="search"
+            class="form-control"
+        >
+        
+        @if (musicList.length > 0) {
+            @for (item of musicList; track item) {
+                <card-item
+                    [id]="item.id"
+                    [music_type]="item.type"
+                    [name]="item.name"
+                    [content]="item.content"
+                />
+            }
+        }
+    }
+</div>

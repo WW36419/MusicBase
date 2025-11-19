@@ -1,0 +1,82 @@
+<div>
+    <form [formGroup]="songAddForm" (ngSubmit)="addSong()">
+        <fieldset>
+            <legend>Dodaj nową piosenkę:</legend>
+            <div class="input-group"><label for="name"></label>
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nazwa...">
+            </div>
+
+            @if (artists.length > 0) {
+                <div>
+                    <h4>Artyści:</h4>
+                    @for (item of artists; track item) {
+                        <div class="card">
+                            <p>{{item.name}}</p>
+                        </div>
+                    }
+                </div>
+            }
+
+            <div>
+                <form [formGroup]="artistPick" (ngSubmit)="addArtistToSong()">
+                    <fieldset>
+                        <legend>Dodaj artystę do piosenki:</legend>
+                        <div>
+                            <input
+                                [(ngModel)]="artistQuery"
+                                [ngModelOptions]="{standalone: true}"
+                                (ngModelChange)="updateSearchedArtists()"
+                                id="searchArtists"
+                                type="search"
+                                class="form-control"
+                            >
+                        </div>
+                        <div class="input-group"><label for="artists"></label>
+                            <select class="form-control" id="artists" formControlName="artist" size="4">
+                                @for (item of searched_artists; track item) {
+                                    <option [ngValue]="item">{{item.name}}</option>
+                                }
+                            </select>
+                        </div>
+                        <div>
+                            <button class="btn btn-primary" type="submit" [disabled]="!artistPick.valid">Dodaj artystę do piosenki</button>
+                        </div>
+                    </fieldset>
+                </form>
+            </div>
+
+            <div class="col-xs-offset-3 col-xs-10">
+                <button (click)="toggleAlbum()" type="button" name="toggle_album" class="btn btn-primary">Dodaj do albumu</button>
+            </div>
+            @if (showAlbumPick) {
+                <div>
+                    <h4>Dodaj piosenkę do albumu:</h4>
+                    <div class="input-group"><label for="track_number">Numer utworu w albumie (od 0 do 100): </label>
+                        <input type="number" class="form-control" id="track_number" formControlName="track_number" min="0" max="100">
+                    </div>
+                    <div class="input-group"><label for="albums"></label>
+                        <select class="form-control" id="albums" formControlName="album_id" size="4">
+                            @for (item of proposed_albums; track item) {
+                                <option [ngValue]="item.id">{{item.name}}</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            }
+
+            <div class="input-group"><label for="release_date">Data wydania piosenki: </label>
+                <input type="date" class="form-control" id="release_date" formControlName="release_date">
+            </div>
+            <div class="input-group"><label for="popularity">Popularność (od 0 do 100): </label>
+                <input type="number" class="form-control" id="popularity" formControlName="popularity" min="0" max="100">
+            </div>
+            <div class="form-check">
+                <input type="checkbox" class="form-check-input" id="explicit" formControlName="explicit" value="explicit">
+                <label class="form-check-label" for="explicit">  Nieodpowiednie dla dzieci</label>
+            </div>
+            <div>
+                <button class="btn btn-primary" type="submit" [disabled]="!songAddForm.valid">Dodaj</button>
+            </div>
+        </fieldset>
+    </form>
+</div>

@@ -1,0 +1,8 @@
+<div class="card" [routerLink]="['/song/'+songId]">
+    <img [src]="image_url" class="card-img-top">
+    <h3>{{songName! | shortenText:30}}</h3>
+    <p>@for (artist of artists; track artist) {
+        {{artist.name}}; 
+    }</p>
+    <p>@if (explicit === "True") {18+}</p>
+</div>
