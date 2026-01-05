@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { AlbumDeleteComponent } from './album-delete.component';
 
@@ -8,7 +9,8 @@ describe('AlbumDeleteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlbumDeleteComponent]
+      imports: [AlbumDeleteComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 

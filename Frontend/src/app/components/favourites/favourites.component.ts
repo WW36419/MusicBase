@@ -21,15 +21,8 @@ export class FavouritesComponent {
   }
 
   ngOnInit(): void {
-    this.getFavouriteSongs(this.userId)
-      .then((result: any) => this.setFavouriteSongs(result))
-  }
-
-  getFavouriteSongs(user_id: string): Promise<any> {
-    return new Promise((resolve, reject) =>
-      this.song_srv.getFavouriteSongs(user_id).subscribe(
-        (result: any) => resolve(result)
-      )
+    this.song_srv.getFavouriteSongs(this.userId).subscribe(
+      (result: any) => this.setFavouriteSongs(result)
     )
   }
 

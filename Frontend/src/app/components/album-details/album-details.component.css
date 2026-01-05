@@ -3,6 +3,10 @@
     padding: 10px
 }
 
+div {
+    padding: 0;
+}
+
 .album-container {
     margin: 0 10%
 }

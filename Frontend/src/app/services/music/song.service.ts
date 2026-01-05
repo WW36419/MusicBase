@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { IResponse } from '../../interfaces/iresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -30,8 +32,8 @@ export class SongService {
     return this.http.get(this.url + '/api/songs/favourites/user/' + user_id)
   }
 
-  checkFavouriteSong(user_id: string, song_id: string) {
-    return this.http.get(this.url + '/api/song/favourites/check/' + song_id + '/user/' + user_id)
+  checkFavouriteSong(user_id: string, song_id: string): Observable<IResponse> {
+    return this.http.get<IResponse>(this.url + '/api/song/favourites/check/' + song_id + '/user/' + user_id)
   }
 
 

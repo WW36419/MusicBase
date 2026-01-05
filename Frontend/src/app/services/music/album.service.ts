@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { ITrack } from '../../interfaces/itrack';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,8 @@ export class AlbumService {
     return this.http.get(this.url + "/api/album/" + albumId)
   }
 
-  getAlbumName(albumId: string) {
-    return this.http.get(this.url + '/api/album/name/' + albumId)
+  getAlbumName(albumId: string): Observable<string> {
+    return this.http.get<string>(this.url + '/api/album/name/' + albumId)
   }
 
   getImageURL(albumId: string) {

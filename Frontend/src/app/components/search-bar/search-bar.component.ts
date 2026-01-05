@@ -16,74 +16,73 @@ import { ISearchCard } from '../../interfaces/isearch-card';
 })
 export class SearchBarComponent {
   public musicType: string = ''
-   public musicQuery: string = '' 
+  public musicQuery: string = '' 
   public musicList: Array<ISearchCard> = []
 
 
   constructor(private song_srv: SongService, private artist_srv: ArtistService, private album_srv: AlbumService) {}
 
   updateMusicList() {
-    const getMusicData = (query: string): Promise<any> => {
-      return new Promise((resolve, reject) => {
-        switch (this.musicType) {
-          case 'song':
-            this.song_srv.searchSong(query).subscribe(
-              (result: any) => resolve(result)
-            )
-            break;
-          case 'album':
-            this.album_srv.searchAlbums(query).subscribe(
-              (result: any) => resolve(result)
-            )
-            break;
-          case 'artist':
-            this.artist_srv.searchArtists(query).subscribe(
-              (result: any) => resolve(result)
-            )
-            break;
-        }
-      })
+    this.musicList = [];
+    if (this.musicQuery.length <= 2) {
+      return;
     }
 
-    const setMusicData = (result: any) => {
-      for (let idx in result) {
+    let source$;
+    switch (this.musicType) {
+      case 'song':
+        source$ = this.song_srv.searchSong(this.musicQuery);
+        break;
+      case 'album':
+        source$ = this.album_srv.searchAlbums(this.musicQuery);
+        break;
+      case 'artist':
+        source$ = this.artist_srv.searchArtists(this.musicQuery);
+        break;
+      default:
+        return;
+    }
 
-        let musicId = ''
-        let musicName = ''
-        let musicContent = ''
+    source$.subscribe((result: any) => {
+      const list = result as any[];
+      
+      for (const item of list) {
+        let card: ISearchCard;
 
         switch (this.musicType) {
           case 'song':
-            musicId = result[idx].song_id
-            musicName = result[idx].song_name
-            musicContent = this.artist_srv.getArtistsNames(result[idx].artists)
+            card = {
+              id: item.song_id,
+              type: 'song',
+              name: item.song_name,
+              content: this.artist_srv.getArtistsNames(item.artists)
+            };
             break;
+
           case 'album':
-            musicId = result[idx].album_id
-            musicName = result[idx].name
-            musicContent = this.artist_srv.getArtistsNames(result[idx].artists)
+            card = {
+              id: item.album_id,
+              type: 'album',
+              name: item.name,
+              content: this.artist_srv.getArtistsNames(item.artists)
+            };
             break;
+
           case 'artist':
-            musicId = result[idx].artist_id
-            musicName = result[idx].name
-            musicContent = result[idx].main_genre
+            card = {
+              id: item.artist_id,
+              type: 'artist',
+              name: item.name,
+              content: item.main_genre
+            };
             break;
+
+          default:
+            continue;
         }
-  
-        this.musicList.push({
-          id: musicId,
-          type: this.musicType,
-          name: musicName,
-          content: musicContent
-        })
+
+        this.musicList.push(card);
       }
-    }
-
-
-    this.musicList = []
-    if (this.musicQuery.length > 2) {
-      getMusicData(this.musicQuery)
-        .then((result: any) => setMusicData(result))
-    }
+    });
   }
 }

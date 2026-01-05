@@ -17,6 +17,7 @@ import { CardItemComponent } from "../card-item/card-item.component";
   styleUrl: './album-details.component.css'
 })
 export class AlbumDetailsComponent implements OnInit {
+  private album_id: string = ''
   public name: string = ''
   public artist_list: Array<IArtist> = []
   public popularity: number = 0
@@ -27,48 +28,35 @@ export class AlbumDetailsComponent implements OnInit {
   constructor(private album_srv: AlbumService, private artist_srv: ArtistService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    let id: string = '';
     this.route.paramMap.subscribe((params: any) => {
-      id = params.get('id');
+      this.album_id = params.get('id');
+      
+      this.album_srv.getAlbumDetails(this.album_id)
+        .subscribe((result: any) => this.setAlbumDetails(result))
+      this.album_srv.getTracks(this.album_id)
+        .subscribe((result: any) => this.setTracks(result))
     });
-
-    this.getAlbumDetails(id)
-      .then((result: any) => this.setAlbumDetails(result))
-    this.getTracks(id)
-      .then((result: any) => this.setTracks(result))
-  }
-
-  async getAlbumDetails(albumId: string): Promise<any> {
-    return new Promise((resolve, reject) =>
-      this.album_srv.getAlbumDetails(albumId).subscribe(
-        (result: any) => resolve(result)
-      )
-    )
   }
 
   setAlbumDetails(result: any): void {
-    this.name = result.name
-    this.artist_list = this.artist_srv.transformArtists(result.artists)
-    this.popularity = result.popularity
-    this.image_url = result.image_url
-  }
-
-
-  async getTracks(albumId: string): Promise<any> {
-    return new Promise((resolve, reject) =>
-      this.album_srv.getTracks(albumId).subscribe(
-        (result: any) => resolve(result)
-      )
-    )
+    if (result != null) {
+      this.name = result.name
+      this.artist_list = this.artist_srv.transformArtists(result.artists)
+      this.popularity = result.popularity
+      this.image_url = result.image_url
+    }
   }
 
   setTracks(result:any): void {
-    for (let idx in result) {
-      this.tracks.push({
-        id: result[idx].song_id,
-        nr: result[idx].track_number,
-        name: result[idx].song_name
-      })
+    if (result != null) {
+      for (let idx in result) {
+        this.tracks.push({
+          id: result[idx].song_id,
+          nr: result[idx].track_number,
+          name: result[idx].song_name
+        })
+      }
     }
   }
+
 }

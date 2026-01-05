@@ -5,13 +5,13 @@
         <h1>{{name}}</h1>
         @for (artist of artist_list; track artist) {
             @if (artist.id | artistCheck | async) {
-                <h3 [routerLink]="['/artist/'+artist.id]" class="artist-link">{{artist.name}}</h3>
+                <h3 class="artist-link" [routerLink]="['/artist/'+artist.id]">{{artist.name}}</h3>
             } @else {
                 <h3>{{artist.name}}</h3>
             }
         }
         @if (album_name !== null) {
-            <h5 [routerLink]="['/album/'+album_id]">{{album_name}}</h5>
+            <h5 id="album-name" [routerLink]="['/album/'+album_id]">{{album_name}}</h5>
         }
         <p>@if (explicit === "True") {18+}</p>
         <img [src]="image_url" class="card-img-top">

@@ -8,17 +8,17 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#" [routerLink]="['/']">Strona Główna</a>
+            <a id="homepage" class="nav-link active" aria-current="page" href="#" [routerLink]="['/']">Strona Główna</a>
           </li>
           
           @if(authService.isLoggedIn()) {
             @if(authService.isAdmin()) {
               <li class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/admin']">Panel Administratora</a>
+                <a id="admin" class="nav-link" href="#" [routerLink]="['/admin']">Panel Administratora</a>
               </li>
             }
             <li class="nav-item">
-              <a class="nav-link" href="#" [routerLink]="['/favourites']">Ulubione</a>
+              <a id="favourites" class="nav-link" href="#" [routerLink]="['/favourites']">Ulubione</a>
             </li>
           }
         </ul>
@@ -26,14 +26,14 @@
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             @if(!authService.isLoggedIn()) {
               <li class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/login']">Zaloguj</a>
+                <a id="login" class="nav-link" href="#" [routerLink]="['/login']">Zaloguj</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#" [routerLink]="['/signup']">Załóż konto</a>
+                <a id="signup" class="nav-link" href="#" [routerLink]="['/signup']">Załóż konto</a>
               </li>
             } @else {
               <li class="nav-item">
-                <button class="btn nav-link" (click)="signOut()">Wyloguj</button>
+                <button id="logout" class="btn nav-link" (click)="signOut()">Wyloguj</button>
               </li>
             }
           </ul>

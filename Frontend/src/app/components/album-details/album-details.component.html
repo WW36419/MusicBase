@@ -5,7 +5,7 @@
         <h1>{{name}}</h1>
         @for (artist of artist_list; track artist) {
             @if (artist.id | artistCheck | async) {
-                <h3 [routerLink]="['/artist/'+artist.id]" class="artist-link">{{artist.name}}</h3>
+                <h3 class="artist-link" [routerLink]="['/artist/'+artist.id]">{{artist.name}}</h3>
             } @else {
                 <h3>{{artist.name}}</h3>
             }
@@ -16,12 +16,14 @@
     
         @if (tracks.length > 0) {
             @for (item of tracks; track item) {
-                <card-item
-                    [id]="item.id"
-                    [music_type]="'song'"
-                    [name]="item.nr+'. '+item.name"
-                    [content]="''"
-                />
+                <div class="track-card">
+                    <card-item
+                        [id]="item.id"
+                        [music_type]="'song'"
+                        [name]="item.nr+'. '+item.name"
+                        [content]="''"
+                    />
+                </div>
             }
         }
     }

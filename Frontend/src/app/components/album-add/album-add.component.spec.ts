@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideHttpClient } from '@angular/common/http';
 import { AlbumAddComponent } from './album-add.component';
+
 
 describe('AlbumAddComponent', () => {
   let component: AlbumAddComponent;
@@ -8,7 +9,10 @@ describe('AlbumAddComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AlbumAddComponent]
+      imports: [AlbumAddComponent],
+      providers: [
+        provideHttpClient()
+      ]
     })
     .compileComponents();
 
@@ -17,6 +21,7 @@ describe('AlbumAddComponent', () => {
     fixture.detectChanges();
   });
 
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

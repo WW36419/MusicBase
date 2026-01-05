@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {JwtHelperService} from "@auth0/angular-jwt";
-import {map} from 'rxjs/operators';
+import {catchError, map, of} from 'rxjs';
 import { Token } from '../../interfaces/token';
 import {DOCUMENT} from "@angular/common";
 
@@ -25,6 +25,13 @@ export class AuthService {
           return true;
         }
         return false;
+      }),
+      catchError((error) => {
+        if (error.status === 401) {
+          return of(false);
+        }
+        // inne błędy (np. 500)
+        throw error;
       })
     );
   }

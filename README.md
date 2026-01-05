@@ -17,6 +17,7 @@ Aplikacja zawiera następujące funkcjonalności:
 * [Node.js i NPM](https://nodejs.org/en/download)
 * [Docker](https://www.docker.com/)
 * [Visual Studio Code](https://code.visualstudio.com/)
+* [Google Chrome](https://www.google.com/intl/pl/chrome/) (dla testów)
 
 ## Przygotowanie aplikacji
 
@@ -31,6 +32,23 @@ Aplikacja zawiera następujące funkcjonalności:
 5. Przejdź do [tego linku](http://localhost:4200/). Strona powinna się wyświetlać w takiej postaci:
 
 ![Music Base Homepage](./doc_img/zdj1.png)
+
+
+## Testy
+
+Testy jednostkowe i integracyjne są samodzienie wykonywane na 11 komponentach w Angularze.
+
+Aby uruchomić wszystkie testy jednostkowe i integracyjne w projekcie należy uruchomić terminal w projekcie i wykonać następujące komendy:
+
+```sh
+cd Frontend
+npm install
+npm run test
+```
+
+Powinien aytomatycznie wyskoczyć okno Chrome pokazujący wszystkie wykonane testy na wsystkich komponentach.
+
+Testy manualne (Test Cases) znajdują się na tablicy [MusicBase_projekt](https://trello.com/b/cEUdgEzi/musicbaseprojekt) w Trello.
 
 
 ## Używanie aplikacji

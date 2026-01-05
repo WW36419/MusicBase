@@ -9,6 +9,8 @@ import { AuthService } from '../../services/userbase/auth.service';
 import { ArtistCheckPipe } from '../../pipes/artist-check.pipe';
 import { IArtist } from '../../interfaces/iartist';
 
+import { map, filter, switchMap } from 'rxjs';
+
 
 @Component({
   selector: 'song-details',
@@ -24,12 +26,8 @@ export class SongDetailsComponent implements OnInit {
   public popularity: number = 0
   public explicit: string = ''
   public song_type: string = ''
-  //public duration: number = 0
   public album_id: string = ""
   public album_name: string = ""
-
-  //public duration_min: number = 0
-  //public duration_sec: number = 0
 
   public image_url: any = 'https://www.clipartbest.com/cliparts/Kcj/ok7/Kcjok7pji.jpeg'
   public artist_list: Array<IArtist> = []
@@ -43,22 +41,28 @@ export class SongDetailsComponent implements OnInit {
   constructor(private song_srv: SongService, private album_srv: AlbumService, private artist_srv: ArtistService, private auth_srv: AuthService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
-    if (this.auth_srv.isLoggedIn())
-      this.user_id = this.auth_srv.currentUser.userId
+    if (this.auth_srv.isLoggedIn()) {
+      this.user_id = this.auth_srv.currentUser.userId;
+    }
 
-    this.route.paramMap.subscribe((params: any) => {
-      this.song_id = params.get('id');
-    });
-
-    this.getSongDetails(this.song_id)
-      .then((result: any) => this.setSongDetails(result))
-      .then(() => this.getAlbumName())
-      .then(() => this.getImageURL())
-      .then(() => {
-        if (this.user_id !== '') {
-          this.checkSongInFavourites()
-        }
+    this.route.paramMap
+    .pipe(
+      map(params => params.get('id')),
+      filter((id): id is string => !!id),
+      switchMap(id => {
+        this.song_id = id;
+        return this.song_srv.getSongDetails(id);
       })
+    )
+    .subscribe(result => {
+      this.setSongDetails(result);
+      this.getAlbumName();
+      this.getImageURL();
+
+      if (this.user_id) {
+        this.checkSongInFavourites();
+      }
+    });
   }
 
   async getSongDetails(songId: string): Promise<any> {
@@ -77,11 +81,7 @@ export class SongDetailsComponent implements OnInit {
       this.popularity = result.popularity
       this.explicit = result.explicit
       this.song_type = result.song_type
-      //this.duration = result.duration_ms
       this.album_id = result.album_id
-
-      //this.duration_min = Math.floor(this.duration / 60000)
-      //this.duration_sec = Math.floor(this.duration / 1000) % 60
 
       this.artist_list = this.artist_srv.transformArtists(this.artists)
     }
@@ -130,6 +130,4 @@ export class SongDetailsComponent implements OnInit {
         alert("Nie udało się usunąć piosenki do polubionych!")
     })
   }
-
-
 }

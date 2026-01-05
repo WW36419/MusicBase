@@ -6,7 +6,7 @@ import { SongService } from '../../services/music/song.service';
 import { AlbumService } from '../../services/music/album.service';
 import { ArtistService } from '../../services/music/artist.service';
 import { IArtist } from '../../interfaces/iartist';
-import { IAlbum } from '../../interfaces/ialbum';
+import { IAlbum } from '../../interfaces/ialbum'; 
 
 @Component({
   selector: 'song-add',

@@ -17,15 +17,8 @@ export class Top10SongsAllComponent implements OnInit {
   constructor(private song_srv: SongService, private artist_srv: ArtistService) {}
 
   ngOnInit(): void {
-    this.getTop10Songs()
-      .then((result: any) => this.setTop10Songs(result))
-  }
-
-  getTop10Songs() {
-    return new Promise((resolve, reject) =>
-      this.song_srv.getTop10All().subscribe(
-        (result: any) => resolve(result)
-      )
+    this.song_srv.getTop10All().subscribe(
+      (result: any) => this.setTop10Songs(result)
     )
   }
 

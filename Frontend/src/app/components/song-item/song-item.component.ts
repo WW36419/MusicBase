@@ -29,14 +29,20 @@ export class SongItemComponent implements OnInit {
   }
 
   getImageURL(): void {
-    this.album_srv.getImageURL(this.albumId!).subscribe(response => {
-      if (response !== null)
-        this.image_url = response
-      else
-        this.artist_srv.getImageURL(this.artists![0].id).subscribe(response_art => {
-          if (response_art !== null)
-            this.image_url = response_art
-        })
-    })
+    let isUrlChanged: boolean = false;
+
+    if (this.albumId! != null)
+      this.album_srv.getImageURL(this.albumId!).subscribe(response => {
+        if (response !== null) {
+          this.image_url = response
+          isUrlChanged = true;
+        }
+      })
+    
+    if (!isUrlChanged && this.artists != null) 
+      this.artist_srv.getImageURL(this.artists![0].id).subscribe(response => {
+        if (response !== null)
+          this.image_url = response
+      })
   }
 }

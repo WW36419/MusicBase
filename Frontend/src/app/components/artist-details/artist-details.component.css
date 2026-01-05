@@ -2,6 +2,14 @@
     padding: 10px
 }
 
+div {
+    padding: 0;
+}
+
+h4 {
+    margin-top: 40px;
+}
+
 .artist-container {
     margin: 0 10%
 }

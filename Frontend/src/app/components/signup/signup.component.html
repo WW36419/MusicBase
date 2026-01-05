@@ -1,12 +1,12 @@
 <section class="signup container">
-    <h1 class="entry-title"><span>Załóż konto</span></h1><hr>
-    <form class="form-horizontal" method="post" name="signup" id="signup">
+    <h1 class="entry-title"><span>Zakładanie konta użytkownika</span></h1><hr>
+    <form [formGroup]="signupForm" (ngSubmit)="createUser()" class="form-horizontal" method="post" name="signup" id="signup">
 
       <div class="form-group">
         <label class="control-label col-sm-3">Nazwa użytkownika<span class="text-danger">*</span></label>
         <div class="col-md-8 col-sm-9">
           <input type="text" class="form-control" name="mem_name" id="mem_name" value=""
-                 [(ngModel)]="credentials.name">
+                 formControlName="username">
         </div>
       </div>
 
@@ -16,7 +16,7 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
             <input type="email" class="form-control" name="emailid" id="emailid"
-                   value="" [(ngModel)]="credentials.email">
+                   value="" formControlName="email">
           </div>
         </div>
       </div>
@@ -27,7 +27,7 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" class="form-control" name="password" id="password"
-                   value="" [(ngModel)]="credentials.password">
+                   value="" formControlName="password">
           </div>
         </div>
       </div>
@@ -38,17 +38,21 @@
           <div class="input-group">
             <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
             <input type="password" class="form-control" name="cpassword" id="cpassword"
-                   value="">
+                   value="" formControlName="repeatPassword">
           </div>
         </div>
       </div>
 
       <div class="form-group">
         <div class="col-xs-offset-3 col-xs-10">
-          <button (click)="create()" name="Submit" type="submit" class="btn btn-primary">Sign Up
+          <button [disabled]="!signupForm.valid" name="Submit" type="submit" class="btn btn-primary">Załóż konto
           </button>
         </div>
       </div>
     </form>
+
+    @if (hasTried) {
+      <p class="text-danger">Hasła różnią się od siebie. Upewnij się, że hasła w obu polach są takie same.</p>
+    }
 </section>
-   
+  

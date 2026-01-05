@@ -1,32 +1,39 @@
 <div class="artist-container">
-    <h1>{{name}}</h1>
-    <h3>{{genre}}; {{type}}</h3>
-    <p>Popularność - {{popularity}}%</p>
-    <p>Liczba śledzeń - {{followers}}</p>
+    @if (name === '') {
+        <h1>Nie ma takiego artysty w bazie danych!</h1>
+    } @else {
+        <h1>{{name}}</h1>
+        <h3>{{genre}}; {{type}}</h3>
+        <p>Popularność - {{popularity}}%</p>
+        <p>Liczba śledzeń - {{followers}}</p>
 
-    <img [src]="image_url" class="card-img-top">
+        <img [src]="image_url" class="card-img-top">
 
-    @if (top_songs.length > 0) {
-        <h4>Najpopularniejsze piosenki:</h4>
-        <div> @for (item of top_songs; track item) {
-            <card-item
-                [id]="item.id"
-                [music_type]="'song'"
-                [name]="item.name"
-                [content]="''"
-            />
-        }</div>
-    }
+        @if (top_songs.length > 0) {
+            <h4>Najpopularniejsze piosenki:</h4>
+            <div> @for (item of top_songs; track item) {
+                <div class="song-card">
+                    <card-item
+                    [id]="item.id"
+                    [music_type]="'song'"
+                    [name]="item.name"
+                    [content]="''" />
+                </div>
+            }</div>
+        }
 
-    @if (albums.length > 0) {
-        <h4>Albumy:</h4>
-        <div> @for (item of albums; track item) {
-            <card-item
-                [id]="item.id"
-                [music_type]="'album'"
-                [name]="item.name"
-                [content]="item.date"
-            />
-        }</div>
+        @if (albums.length > 0) {
+            <h4>Albumy:</h4>
+            <div> @for (item of albums; track item) {
+                <div class="album-card">
+                    <card-item
+                        [id]="item.id"
+                        [music_type]="'album'"
+                        [name]="item.name"
+                        [content]="item.date"
+                    />
+                </div>
+            }</div>
+        } 
     }
 </div>

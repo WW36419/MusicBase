@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideHttpClient } from '@angular/common/http';
 
 import { SongDeleteComponent } from './song-delete.component';
 
@@ -8,7 +9,8 @@ describe('SongDeleteComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SongDeleteComponent]
+      imports: [SongDeleteComponent],
+      providers: [provideHttpClient()]
     })
     .compileComponents();
 

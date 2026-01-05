@@ -3,13 +3,13 @@
         <h3>Polubione piosenki:</h3>
         @for (item of fav_songs$; track item) {
             @if (item !== null) {
-                    <song-item 
-                        [songId]="item.id"
-                        [songName]="item.name"
-                        [albumId]="item.album_id"
-                        [artists]="item.artists"
-                        [explicit]="item.explicit"
-                    />
+                <song-item 
+                    [songId]="item.id"
+                    [songName]="item.name"
+                    [albumId]="item.album_id"
+                    [artists]="item.artists"
+                    [explicit]="item.explicit"
+                />
             }
         }
     } @else {
