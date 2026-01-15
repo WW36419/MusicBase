@@ -6,12 +6,17 @@ import morgan from 'morgan'
 import cors from 'cors'
 import Database from './db/database'
 
+import swaggerUi from 'swagger-ui-express';
+import openApiSpec from '../openapi-resolved.json';
+
+
 class App {
     public app: express.Application;
     
     constructor(controllers: Controller[]) {
         this.app = express();
         this.initializeCORS();
+        this.initializeDocs();
         this.initializeMiddlewares();
         this.initializeControllers(controllers);
         this.connectToDatabase();
@@ -25,6 +30,10 @@ class App {
             allowedHeaders: ['Content-Type', 'Authorization', 'x-auth-token']
           }));
     }
+
+    private initializeDocs(): void {
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(openApiSpec));
+    }    
 
     private initializeMiddlewares(): void {
         this.app.use(bodyParser.json());

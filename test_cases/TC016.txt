@@ -1,0 +1,17 @@
+ID: TC016
+
+Tytuł:
+Usuwanie piosenki z ulubionych
+
+Warunki początkowe:
+- Użytkownik jest zalogowany (TC013),
+- Co najmniej jedna piosenka znajduje się na liście ulubionych (TC015),
+- Aplikacja jest otwarta na stronie ulubionych piosenek (http://localhost:4200/favourites).
+
+Kroki testowe:
+1. Kliknij kartę wybranej piosenki na liście ulubionych.
+2. Na stronie szczegółów piosenki kliknij przycisk "Usuń z polubionych".
+3. Wróć do zakładki "Ulubione".
+
+Oczekiwany rezultat:
+Usunięta piosenka nie jest już widoczna na liście ulubionych.

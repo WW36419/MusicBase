@@ -1,0 +1,14 @@
+ID: TC007
+
+Tytuł: 
+Wyszukiwanie piosenek w sekcji wyszukiwania
+
+Warunki początkowe:
+Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+ 
+Kroki testowe:
+1. W polu "Szukaj" wybierz opcję "Piosenka".
+2. W polu tekstowym wprowadź frazę "lov".
+
+Oczekiwany rezultat: 
+Wyświetlone są co najmniej trzy karty piosenek, których nazwy zawierają ciąg znaków "lov" (np. "Love Yourself", "Love On The Brain", "Love Song").

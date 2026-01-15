@@ -1,0 +1,13 @@
+ID: TC011
+
+Tytuł: 
+Przejście do strony szczegółów piosenki z sekcji "Top 10 Najpopularniejszych Piosenek"
+
+Warunki początkowe:
+Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+ 
+Kroki testowe:
+1. Kliknij pierwszą kartę piosenki w sekcji "Top 10 Najpopularniejszych Piosenek".
+
+Oczekiwany rezultat: 
+Zostaje otwarta strona szczegółów piosenki odpowiadającej wybranej karcie.

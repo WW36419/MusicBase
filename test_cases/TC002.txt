@@ -1,0 +1,23 @@
+ID: TC002
+
+Tytuł: 
+Weryfikacja zawartości strony szczegółów piosenki
+
+Warunki początkowe: 
+Aplikacja jest otwarta na stronie szczegółów piosenki (http://localhost:4200/song/1QV6tiMFM6fSOKOGLMHYYg)
+
+Kroki testowe:
+1. Wyświetl stronę szczegółów piosenki.
+
+Oczekiwany rezultat: 
+Strona zawiera:
+- pasek nawigacyjny, 
+- nazwę piosenki (Poker Face),
+- nazwę artysty/artystów (Lady Gaga),
+- nazwę albumu (The Fame),
+- obraz albumu lub artysty,
+- komunikat "Zaloguj się, by polubić tą piosenkę"
+- typ piosenki (Solo),
+- datę wydania (2008-01-01),
+- popularność piosenki (73%),
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

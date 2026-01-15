@@ -1,0 +1,1568 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Music Base Backend Server",
+    "description": "Dokumentacja API aplikacji Music Base dla backend-endowego serwera bazowanego na framework'u Express.js.\n",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3100/api"
+    }
+  ],
+  "tags": [
+    {
+      "name": "song",
+      "description": "Zarządzanie danymi piosenek"
+    },
+    {
+      "name": "album",
+      "description": "Zarządzanie danymi albumów"
+    },
+    {
+      "name": "artist",
+      "description": "Zarządzanie danymi artystów"
+    },
+    {
+      "name": "user",
+      "description": "Zarządzanie danymi użytkowników i logowania"
+    }
+  ],
+  "paths": {
+    "/songs/top10/all": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Pobiera 10 najpopularniejszych piosenek",
+        "description": "Zwraca listę 10 najpopularniejszych piosenek zapisanych w lokalnej bazie danych.",
+        "operationId": "getTop10AllSongs",
+        "responses": {
+          "200": {
+            "description": "Lista 10 najpopularniejszych piosenek",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SongCard"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak parametru wyszukiwania"
+          }
+        }
+      }
+    },
+    "/songs/search": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Wyszukuje piosenki po frazie",
+        "description": "Wyszukuje piosenki na podstawie przekazanej frazy tekstowej.",
+        "operationId": "searchSongs",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Fraza wyszukiwania",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista piosenek spełniających kryteria wyszukiwania",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SongItem"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/song/{id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Pobiera szczegóły piosenki",
+        "description": "Zwraca szczegółowe informacje o piosence na podstawie jej ID.",
+        "operationId": "getSongDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator piosenki",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Szczegóły piosenki",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SongDetails"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Nieprawidłowe ID piosenki"
+          }
+        }
+      }
+    },
+    "/song/check/{id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Sprawdza, czy piosenka istnieje",
+        "description": "Sprawdza, czy piosenka o podanym ID istnieje w bazie danych.",
+        "operationId": "checkSongId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator piosenki",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informacja, czy piosenka istnieje",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Check"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID piosenki"
+          }
+        }
+      }
+    },
+    "/songs/from_album/{id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Pobiera piosenki z albumu",
+        "description": "Zwraca listę piosenek przypisanych do danego albumu.",
+        "operationId": "getSongsFromAlbum",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator albumu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista piosenek z albumu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrackItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID albumu"
+          }
+        }
+      }
+    },
+    "/songs/from_artist/{id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Pobiera piosenki artysty",
+        "description": "Zwraca listę piosenek danego artysty.",
+        "operationId": "getSongsFromArtist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator artysty",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista piosenek artysty",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/TrackItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID artysty"
+          }
+        }
+      }
+    },
+    "/songs/favourites/user/{id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Pobiera ulubione piosenki użytkownika",
+        "description": "Zwraca listę ulubionych piosenek danego użytkownika. Endpoint chroniony.",
+        "operationId": "getFavouriteSongs",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator użytkownika",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista ulubionych piosenek",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SongCard"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID użytkownika"
+          },
+          "401": {
+            "description": "Brak autoryzacji"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    },
+    "/song/favourites/check/{song_id}/user/{user_id}": {
+      "get": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Sprawdza, czy piosenka jest w ulubionych",
+        "description": "Sprawdza, czy dana piosenka znajduje się na liście ulubionych użytkownika.",
+        "operationId": "checkFavouriteSong",
+        "parameters": [
+          {
+            "name": "song_id",
+            "in": "path",
+            "description": "Identyfikator piosenki",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "path",
+            "description": "Identyfikator użytkownika",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Wynik sprawdzenia",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Check"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID piosenki lub użytkownika"
+          }
+        }
+      }
+    },
+    "/song/add": {
+      "post": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Dodaje nową piosenkę",
+        "description": "Dodaje nową piosenkę oraz przypisany do niej utwór (track).",
+        "operationId": "addSong",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SongAddReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Piosenka została dodana"
+          },
+          "400": {
+            "description": "Błędne dane wejściowe"
+          }
+        }
+      }
+    },
+    "/song/to_favourites": {
+      "post": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Dodaje piosenkę do ulubionych",
+        "description": "Dodaje piosenkę do listy ulubionych użytkownika.",
+        "operationId": "addFavouriteSong",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SongFavReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Piosenka dodana do ulubionych"
+          },
+          "400": {
+            "description": "Błąd walidacji danych"
+          }
+        }
+      }
+    },
+    "/song/del": {
+      "delete": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Usuwa piosenkę",
+        "description": "Usuwa piosenkę wraz z powiązanymi danymi (tracki, ulubione, playlisty).",
+        "operationId": "deleteSong",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SongDelReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Piosenka została usunięta"
+          },
+          "400": {
+            "description": "Błąd podczas usuwania piosenki"
+          }
+        }
+      }
+    },
+    "/song/from_favourites": {
+      "delete": {
+        "tags": [
+          "song"
+        ],
+        "summary": "Usuwa piosenkę z ulubionych",
+        "description": "Usuwa piosenkę z listy ulubionych użytkownika.",
+        "operationId": "deleteFavouriteSong",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SongFavReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Piosenka została usunięta z ulubionych"
+          },
+          "400": {
+            "description": "Błąd walidacji danych"
+          }
+        }
+      }
+    },
+    "/albums/search": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Wyszukuje albumy po frazie",
+        "description": "Wyszukuje albumy na podstawie przekazanej frazy tekstowej.",
+        "operationId": "searchAlbums",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Fraza wyszukiwania",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista albumów spełniających kryteria wyszukiwania",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlbumItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak parametru wyszukiwania"
+          }
+        }
+      }
+    },
+    "/album/{id}": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Pobiera szczegóły albumu",
+        "description": "Zwraca szczegółowe informacje o albumie na podstawie jego ID.",
+        "operationId": "getAlbumDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator albumu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Szczegóły albumu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlbumDetails"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID albumu"
+          }
+        }
+      }
+    },
+    "/album/check/{id}": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Sprawdza, czy album istnieje",
+        "description": "Sprawdza, czy album o podanym ID istnieje w bazie danych.",
+        "operationId": "checkAlbumId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator albumu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informacja, czy album istnieje",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Check"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID albumu"
+          }
+        }
+      }
+    },
+    "/album/name/{id}": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Pobiera nazwę albumu",
+        "description": "Zwraca nazwę albumu na podstawie jego ID.",
+        "operationId": "getAlbumName",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator albumu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nazwa albumu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID albumu"
+          }
+        }
+      }
+    },
+    "/album/image/{id}": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Pobiera URL okładki albumu",
+        "description": "Zwraca adres URL obrazu okładki albumu.",
+        "operationId": "getAlbumImage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator albumu",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "URL obrazu albumu",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID albumu"
+          }
+        }
+      }
+    },
+    "/albums/from_artist/{id}": {
+      "get": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Pobiera albumy artysty",
+        "description": "Zwraca listę albumów przypisanych do danego artysty.",
+        "operationId": "getAlbumsFromArtist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator artysty",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista albumów artysty",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AlbumItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID artysty"
+          }
+        }
+      }
+    },
+    "/album/add": {
+      "post": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Dodaje nowy album",
+        "description": "Dodaje nowy album wraz z informacjami o wydaniu i powiązanymi utworami.",
+        "operationId": "addAlbum",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlbumAddReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Album został dodany"
+          },
+          "400": {
+            "description": "Błędne dane wejściowe"
+          }
+        }
+      }
+    },
+    "/album/del": {
+      "delete": {
+        "tags": [
+          "album"
+        ],
+        "summary": "Usuwa album",
+        "description": "Usuwa album wraz z informacjami o wydaniu i powiązanymi utworami.",
+        "operationId": "deleteAlbum",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AlbumDelReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Album został usunięty"
+          },
+          "400": {
+            "description": "Błąd podczas usuwania albumu"
+          }
+        }
+      }
+    },
+    "/artists/search": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Wyszukuje artystów",
+        "description": "Wyszukuje artystów na podstawie przekazanej frazy tekstowej.",
+        "operationId": "searchArtists",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "Fraza wyszukiwania",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista artystów spełniających kryteria wyszukiwania",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArtistItem"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak parametru wyszukiwania"
+          }
+        }
+      }
+    },
+    "/artist/{id}": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Pobiera szczegóły artysty",
+        "description": "Zwraca szczegółowe informacje o artyście na podstawie jego ID.",
+        "operationId": "getArtistDetails",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator artysty",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Szczegóły artysty",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ArtistDetails"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID artysty"
+          }
+        }
+      }
+    },
+    "/artist/check/{id}": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Sprawdza, czy artysta istnieje",
+        "description": "Sprawdza, czy artysta o podanym ID istnieje w bazie danych.",
+        "operationId": "checkArtistID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator artysty",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Informacja, czy artysta istnieje",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Check"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID artysty"
+          }
+        }
+      }
+    },
+    "/artist/image/{id}": {
+      "get": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Pobiera URL zdjęcia artysty",
+        "description": "Zwraca adres URL obrazu artysty.",
+        "operationId": "getArtistImage",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Identyfikator artysty",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "URL obrazu artysty",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Brak ID artysty"
+          }
+        }
+      }
+    },
+    "/artist/add": {
+      "post": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Dodaje nowego artystę",
+        "description": "Dodaje nowego artystę do bazy danych.",
+        "operationId": "addArtist",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArtistAddReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Artysta został dodany"
+          },
+          "400": {
+            "description": "Błędne dane wejściowe"
+          }
+        }
+      }
+    },
+    "/artist/del": {
+      "delete": {
+        "tags": [
+          "artist"
+        ],
+        "summary": "Usuwa artystę",
+        "description": "Usuwa artystę z bazy danych.",
+        "operationId": "deleteArtist",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArtistDelReq"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Artysta został usunięty"
+          },
+          "400": {
+            "description": "Błąd podczas usuwania artysty"
+          }
+        }
+      }
+    },
+    "/username/{userId}": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Pobiera nazwę użytkownika na podstawie ID",
+        "description": "Zwraca nazwę użytkownika przypisaną do podanego identyfikatora.",
+        "operationId": "getUsernameById",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Identyfikator użytkownika",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Nazwa użytkownika została poprawnie pobrana",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Username"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Nieprawidłowe ID użytkownika"
+          }
+        }
+      }
+    },
+    "/user/create": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Tworzy nowego użytkownika lub aktualizuje istniejącego",
+        "description": "Tworzy nowy profil użytkownika lub aktualizuje istniejący.\nJeżeli w żądaniu przekazano hasło, zostaje ono zahashowane i zapisane.\n",
+        "operationId": "createUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Signup"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Użytkownik został utworzony lub zaktualizowany",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Błąd walidacji danych wejściowych"
+          }
+        }
+      }
+    },
+    "/user/auth": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Uwierzytelnia użytkownika",
+        "description": "Sprawdza poprawność danych logowania użytkownika.\nW przypadku sukcesu zwraca token autoryzacyjny.\n",
+        "operationId": "authenticateUser",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Login"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Autoryzacja zakończona sukcesem",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Token"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Nieprawidłowe dane logowania lub brak autoryzacji"
+          }
+        }
+      }
+    },
+    "/user/logout/{userId}": {
+      "delete": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Wylogowuje użytkownika",
+        "description": "Usuwa aktywną sesję użytkownika na podstawie identyfikatora.\nEndpoint wymaga poprawnego tokena autoryzacyjnego.\n",
+        "operationId": "logoutUser",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Identyfikator użytkownika",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Użytkownik został poprawnie wylogowany"
+          },
+          "401": {
+            "description": "Brak autoryzacji"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      },
+      "AlbumDetails": {
+        "type": "object",
+        "properties": {
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          },
+          "name": {
+            "type": "string",
+            "example": "The Fame"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 73
+          },
+          "total_tracks": {
+            "type": "integer",
+            "example": 15
+          },
+          "album_type": {
+            "type": "string",
+            "example": "album"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://i.scdn.co/image/2f80d601231bc9040b3f1436823ef2cdd81c76b9"
+          }
+        }
+      },
+      "AlbumItem": {
+        "type": "object",
+        "properties": {
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          },
+          "name": {
+            "type": "string",
+            "example": "The Fame"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          }
+        }
+      },
+      "AlbumAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "The Fame"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 73
+          },
+          "total_tracks": {
+            "type": "integer",
+            "example": 15
+          },
+          "type": {
+            "type": "string",
+            "example": "album"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://i.scdn.co/image/2f80d601231bc9040b3f1436823ef2cdd81c76b9"
+          },
+          "artist_id": {
+            "type": "string",
+            "example": "1HY2Jd0NmPuamShAr6KMms"
+          },
+          "date": {
+            "type": "string",
+            "example": "2008-01-01T00:00:00.000Z"
+          },
+          "date_precision": {
+            "type": "string",
+            "example": "day"
+          },
+          "song_ids": {
+            "type": "string",
+            "example": "[\"1QV6tiMFM6fSOKOGLMHYYg\"]"
+          }
+        }
+      },
+      "AlbumDelReq": {
+        "type": "object",
+        "properties": {
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          }
+        }
+      },
+      "ArtistDetails": {
+        "type": "object",
+        "properties": {
+          "artist_id": {
+            "type": "string",
+            "example": "1HY2Jd0NmPuamShAr6KMms"
+          },
+          "name": {
+            "type": "string",
+            "example": "Lady Gaga"
+          },
+          "followers": {
+            "type": "integer",
+            "example": 8801807
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 89
+          },
+          "artist_type": {
+            "type": "string",
+            "example": "singer"
+          },
+          "main_genre": {
+            "type": "string",
+            "example": "dance pop"
+          },
+          "genres": {
+            "type": "string",
+            "example": "[\"dance pop\",\"pop\"]"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://i.scdn.co/image/ea76c82c05174105751f850c8a1db426dd03aa78"
+          }
+        }
+      },
+      "ArtistItem": {
+        "type": "object",
+        "properties": {
+          "artist_id": {
+            "type": "string",
+            "example": "1HY2Jd0NmPuamShAr6KMms"
+          },
+          "name": {
+            "type": "string",
+            "example": "Lady Gaga"
+          },
+          "main_genre": {
+            "type": "string",
+            "example": "dance pop"
+          }
+        }
+      },
+      "ArtistAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Lady Gaga"
+          },
+          "followers": {
+            "type": "integer",
+            "example": 8801807
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 89
+          },
+          "type": {
+            "type": "string",
+            "example": "singer"
+          },
+          "main_genre": {
+            "type": "string",
+            "example": "dance pop"
+          },
+          "genres": {
+            "type": "string",
+            "example": "[\"dance pop\",\"pop\"]"
+          },
+          "image_url": {
+            "type": "string",
+            "example": "https://i.scdn.co/image/ea76c82c05174105751f850c8a1db426dd03aa78"
+          }
+        }
+      },
+      "ArtistDelReq": {
+        "type": "object",
+        "properties": {
+          "artist_id": {
+            "type": "string",
+            "example": "1HY2Jd0NmPuamShAr6KMms"
+          }
+        }
+      },
+      "Check": {
+        "type": "object",
+        "properties": {
+          "check": {
+            "type": "boolean",
+            "example": true
+          }
+        }
+      },
+      "SongDetails": {
+        "type": "object",
+        "properties": {
+          "song_id": {
+            "type": "string",
+            "example": "1QV6tiMFM6fSOKOGLMHYYg"
+          },
+          "song_name": {
+            "type": "string",
+            "example": "Poker Face"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 73
+          },
+          "explicit": {
+            "type": "string",
+            "example": "false"
+          },
+          "song_type": {
+            "type": "string",
+            "example": "Solo"
+          },
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          },
+          "track_number": {
+            "type": "integer",
+            "example": 4
+          },
+          "release_date": {
+            "type": "string",
+            "example": "2008-01-01T00:00:00.000Z"
+          }
+        }
+      },
+      "SongCard": {
+        "type": "object",
+        "properties": {
+          "song_id": {
+            "type": "string",
+            "example": "1QV6tiMFM6fSOKOGLMHYYg"
+          },
+          "song_name": {
+            "type": "string",
+            "example": "Poker Face"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          },
+          "explicit": {
+            "type": "string",
+            "example": "false"
+          },
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          }
+        }
+      },
+      "SongItem": {
+        "type": "object",
+        "properties": {
+          "song_id": {
+            "type": "string",
+            "example": "5p7ujcrUXASCNwRaWNHR1C"
+          },
+          "song_name": {
+            "type": "string",
+            "example": "Without Me"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"26VFTg2z8YR0cCuwLzESi2\":\"Halsey\"}"
+          }
+        }
+      },
+      "TrackItem": {
+        "type": "object",
+        "properties": {
+          "track_number": {
+            "type": "integer",
+            "example": 4
+          },
+          "song_id": {
+            "type": "string",
+            "example": "1QV6tiMFM6fSOKOGLMHYYg"
+          },
+          "song_name": {
+            "type": "string",
+            "example": "Poker Face"
+          }
+        }
+      },
+      "SongAddReq": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Poker Face"
+          },
+          "billboard": {
+            "type": "string",
+            "example": "(Poker Face, Lady Gaga)"
+          },
+          "artists": {
+            "type": "string",
+            "example": "{\"1HY2Jd0NmPuamShAr6KMms\":\"Lady Gaga\"}"
+          },
+          "popularity": {
+            "type": "integer",
+            "example": 73
+          },
+          "explicit": {
+            "type": "string",
+            "example": "false"
+          },
+          "type": {
+            "type": "string",
+            "example": "Solo"
+          },
+          "album_id": {
+            "type": "string",
+            "example": "1qwlxZTNLe1jq3b0iidlue"
+          },
+          "track_number": {
+            "type": "integer",
+            "example": 4
+          },
+          "release_date": {
+            "type": "string",
+            "example": "2008-01-01T00:00:00.000Z"
+          },
+          "release_date_precision": {
+            "type": "string",
+            "example": "day"
+          }
+        }
+      },
+      "SongDelReq": {
+        "type": "object",
+        "properties": {
+          "song_id": {
+            "type": "string",
+            "example": "5p7ujcrUXASCNwRaWNHR1C"
+          }
+        }
+      },
+      "SongFavReq": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "XW3h7f5MUQWOwkFCU1q1"
+          },
+          "song_id": {
+            "type": "string",
+            "example": "5p7ujcrUXASCNwRaWNHR1C"
+          }
+        }
+      },
+      "Login": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "jank@test.pl"
+          },
+          "password": {
+            "type": "string",
+            "example": "test123"
+          }
+        }
+      },
+      "Signup": {
+        "type": "object",
+        "properties": {
+          "login": {
+            "type": "string",
+            "example": "Jan Kowalski"
+          },
+          "name": {
+            "type": "string",
+            "example": "Jan Kowalski"
+          },
+          "email": {
+            "type": "string",
+            "example": "jank@test.pl"
+          },
+          "password": {
+            "type": "string",
+            "example": "test123"
+          }
+        }
+      },
+      "Token": {
+        "type": "object",
+        "properties": {
+          "token": {
+            "type": "string",
+            "example": "oN2Y1TVVRV093a0ZDVTFxMSIsIm5hbWUiOiJhZG1"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "example": "Jan Kowalski"
+          },
+          "user_name": {
+            "type": "string",
+            "example": "Jan Kowalski"
+          },
+          "email": {
+            "type": "string",
+            "example": "jank@test.pl"
+          },
+          "is_admin": {
+            "type": "boolean",
+            "example": false
+          }
+        }
+      },
+      "Username": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jan Kowalski"
+          }
+        }
+      }
+    },
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}

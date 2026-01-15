@@ -1,0 +1,18 @@
+ID: TC006
+
+Tytuł: 
+Weryfikacja zawartości strony logowania
+
+Warunki początkowe: 
+Aplikacja jest otwarta na stronie logowania (http://localhost:4200/login)
+
+Kroki testowe:
+1. Wyświetl stronę logowania.
+
+Oczekiwany rezultat: 
+Strona zawiera:
+- pasek nawigacyjny, 
+- nagłówek "Logowanie",
+- pola tekstowe: adres e-mail, hasło,
+- przycisk "Zaloguj",
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

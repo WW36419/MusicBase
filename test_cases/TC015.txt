@@ -1,0 +1,15 @@
+ID: TC015
+
+Tytuł:
+Dodawanie piosenki do listy ulubionych
+
+Warunki początkowe:
+- Użytkownik jest zalogowany (TC013),
+- Aplikacja jest otwarta na stronie szczegółów piosenki (http://localhost:4200/song/1QV6tiMFM6fSOKOGLMHYYg)
+
+Kroki testowe:
+1. Kliknij przycisk "Polub" znajdujący się pod obrazem piosenki.
+2. Przejdź do zakładki "Ulubione" w pasku nawigacyjnym.
+
+Oczekiwany rezultat:
+Na liście ulubionych wyświetlana jest karta wcześniej polubionej piosenki.

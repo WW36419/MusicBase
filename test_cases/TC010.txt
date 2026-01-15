@@ -1,0 +1,14 @@
+ID: TC010
+
+Tytuł:
+Przejście do strony szczegółów piosenki z wyników wyszukiwania
+
+Warunki początkowe:
+Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+
+1. W polu "Szukaj" wybierz opcję "Piosenka".
+2. W polu tekstowym wprowadź frazę "lov".
+3. Kliknij pierwszą kartę wyniku wyszukiwania.
+
+Oczekiwany rezultat: 
+Zostaje otwarta strona szczegółów piosenki odpowiadającej wybranej karcie.

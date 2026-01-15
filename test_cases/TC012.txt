@@ -1,0 +1,17 @@
+ID: TC012
+
+Tytuł:
+Rejestracja nowego użytkownika
+
+Warunki początkowe:
+- Aplikacja jest otwarta na stronie założenia konta (http://localhost:4200/signup),
+- Formularz rejestracji zawiera wszystkie wymagane pola (TC005).
+
+Kroki testowe:
+1. Wpisz "Jan Kowalski" w polu "Nazwa użytkownika".
+2. Wpisz "jank@test.pl" w polu "Email".
+3. Wpisz "test123" w polach "Hasło" i "Powtórz hasło".
+4. Kliknij w przycisk "Załóż konto".
+
+Oczekiwany rezultat: 
+Użytkownik zostaje zarejestrowany i następuje przekierowanie na stronę główną.

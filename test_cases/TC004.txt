@@ -1,0 +1,23 @@
+ID: TC004
+
+Tytuł: 
+Weryfikacja zawartości strony szczegółów artysty
+
+Warunki początkowe: 
+Aplikacja jest otwarta na stronie szczegółów artysty (http://localhost:4200/artist/1HY2Jd0NmPuamShAr6KMms)
+
+Kroki testowe:
+1. Wyświetl stronę szczegółów artysty.
+
+Oczekiwany rezultat: 
+Strona zawiera:
+- pasek nawigacyjny, 
+- nazwę artysty (Lady Gaga),
+- główny gatunek muzyczny (dance pop),
+- typ artysty (singer),
+- popularność artysty (89%),
+- liczba obserwujących (8 801 807)
+- obraz artysty,
+- listę najpopularniejszych piosenek artysty,
+- listę albumów artysty,
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

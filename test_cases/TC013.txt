@@ -1,0 +1,19 @@
+ID: TC013
+
+Tytuł:
+Logowanie do konta użytkownika
+
+Warunki początkowe:
+- Konto użytkownika zostało wcześniej utworzone (TC012),
+- Użytkownik jest wylogowany,
+- Aplikacja jest otwarta na stronie logowania (http://localhost:4200/login).
+
+Kroki testowe:
+1. Wpisz "jank@test.pl" w polu "Email".
+2. Wpisz "test123" w polu "Hasło".
+3. Kliknij w przycisk "Zaloguj".
+
+Oczekiwany rezultat:
+Następuje przekierowanie na stronę główną. W pasku nawigacyjnym:
+- pojawiają się zakładki "Ulubione" oraz "Wyloguj",
+- zakładki "Zaloguj" i "Załóż konto" nie są widoczne.

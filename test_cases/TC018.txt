@@ -1,0 +1,21 @@
+ID: TC018
+
+Tytuł: 
+Weryfikacja zawartości panelu administratora
+
+Warunki początkowe: 
+- Użytkownik jest zalogowany jako administrator (TC017),
+- Aplikacja jest otwarta na stronie panelu administratora (http://localhost:4200/admin)
+
+Kroki testowe:
+1. Wyświetl stronę panelu administratora.
+
+Oczekiwany rezultat: 
+Strona powinna zawierać sześć przycisków:
+- "Dodaj piosenkę",
+- "Dodaj album",
+- "Dodaj artystę",
+- "Usuń piosenkę",
+- "Usuń album",
+- "Usuń artystę".
+Każdy przycisk otwiera odpowiedni formularz do zarządzania danymi muzycznymi.

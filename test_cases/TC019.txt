@@ -1,0 +1,17 @@
+ID: TC019
+
+Tytuł:
+Weryfikacja obsługi niezgodnych haseł podczas rejestracji
+
+Warunki początkowe:
+- Aplikacja jest otwarta na stronie założenia konta (http://localhost:4200/signup).
+
+Kroki testowe:
+1. Wpisz "Anna Nowak" w polu "Nazwa użytkownika".
+2. Wpisz "anowak@test.pl" w polu "Email".
+3. Wpisz "test123" w polu "Hasło" 
+4. Wpisz "t321" w polu "Powtórz hasło".
+5. Kliknij w przycisk "Załóż konto".
+
+Oczekiwany rezultat: 
+Wyświetlany jest komunikat błędu w czerwonym kolorze: "Hasła różnią się od siebie. Upewnij się, że hasła w obu polach są takie same".

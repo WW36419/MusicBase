@@ -51,7 +51,7 @@ class SongController implements Controller {
             const data = await this.songService.songDetails(song_id);
             response.status(200).json(data)
         } else
-            response.status(400).json({"error": "No song ID!"})
+            response.status(400).json({"error": "Invalid song ID!"})
     }
 
     private checkSongID = async (request: Request, response: Response) => {

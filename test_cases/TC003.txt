@@ -1,0 +1,20 @@
+ID: TC003
+
+Tytuł: 
+Weryfikacja zawartości strony szczegółów albumu
+
+Warunki początkowe: 
+Aplikacja jest otwarta na stronie szczegółów albumu (http://localhost:4200/album/1qwlxZTNLe1jq3b0iidlue)
+
+Kroki testowe:
+1. Wyświetl stronę szczegółów albumu.
+
+Oczekiwany rezultat: 
+Strona zawiera:
+- pasek nawigacyjny, 
+- nazwę albumu (The Fame),
+- nazwę artysty/artystów (Lady Gaga),
+- popularność albumu (73%),
+- obraz albumu,
+- numerowaną listę piosenek należących do albumu,
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

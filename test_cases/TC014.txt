@@ -1,0 +1,16 @@
+ID: TC014
+
+Tytuł:
+Wylogowanie użytkownika z aplikacji
+
+Warunki początkowe:
+- Użytkownik jest zalogowany (TC013),
+- Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+
+Kroki testowe:
+1. Kliknij zakładkę "Wyloguj" w pasku nawigacyjnym.
+
+Oczekiwany rezultat:
+Użytkownik zostaje wylogowany. W pasku nawigacyjnym:
+- znikają zakładki "Ulubione" i "Wyloguj",
+- pojawiają się zakładki "Zaloguj" oraz "Załóż konto".

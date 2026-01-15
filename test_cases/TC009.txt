@@ -1,0 +1,14 @@
+ID: TC009
+
+Tytuł: 
+Wyszukiwanie artystów w sekcji wyszukiwania
+
+Warunki początkowe:
+Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+ 
+Kroki testowe:
+1. W polu "Szukaj" wybierz opcję "Artysta".
+2. W polu tekstowym wprowadź frazę "jus".
+
+Oczekiwany rezultat: 
+Wyświetlone są co najmniej trzy karty artystów, których nazwy zawierają ciąg znaków "jus" ("Justin Bieber", "Justin Timberlake", "Justin Moore").

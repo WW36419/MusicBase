@@ -1,0 +1,16 @@
+ID: TC020
+
+Tytuł:
+Nieudane logowanie użytkownika
+
+Warunki początkowe:
+- Użytkownik jest wylogowany,
+- Aplikacja jest otwarta na stronie logowania (http://localhost:4200/login).
+
+Kroki testowe:
+1. Wpisz "a@b.c" w polu "Email".
+2. Wpisz "123" w polu "Hasło" 
+3. Kliknij w przycisk "Zaloguj".
+
+Oczekiwany rezultat: 
+Wyświetlany jest komunikat błędu w czerwonym kolorze: "Niepoprawny login lub hasło".

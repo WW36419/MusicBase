@@ -1,0 +1,18 @@
+ID: TC005
+
+Tytuł: 
+Weryfikacja zawartości strony założenia konta
+
+Warunki początkowe: 
+Aplikacja jest otwarta na stronie założenia konta (http://localhost:4200/signup)
+
+Kroki testowe:
+1. Wyświetl stronę założenia konta.
+
+Oczekiwany rezultat: 
+Strona zawiera:
+- pasek nawigacyjny, 
+- nagłówek z tekstem "Zakładanie konta użytkownika",
+- pola tekstowe: nazwa użytkownika, adres e-mail, hasło, powtórzenie hasła,
+- przycisk "Załóż konto",
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

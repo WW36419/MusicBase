@@ -1,0 +1,17 @@
+ID: TC001
+
+Tytuł: 
+Weryfikacja zawartości strony głównej
+
+Warunki początkowe: 
+Aplikacja "Music Base" jest otwarta na stronie głównej ("localhost:4200/").
+
+Kroki testowe:
+1. Wyświetl stronę główną aplikacji.
+
+Oczekiwany rezultat: 
+Strona główna zawiera (od góry do dołu):
+- pasek nawigacji, 
+- sekcję wyszukiwania danych muzycznych, 
+- sekcję "Top 10 Najpopularniejszych Piosenek" z dokładnie 10 kartami (każda karta zawiera obraz, nazwę piosenki oraz nazwę artysty/artystów),
+- stopkę z tekstem "© Wiktor Wojtanowski | 2026".

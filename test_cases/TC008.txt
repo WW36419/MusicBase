@@ -1,0 +1,14 @@
+ID: TC008
+
+Tytuł: 
+Wyszukiwanie albumów w sekcji wyszukiwania
+
+Warunki początkowe:
+Aplikacja jest otwarta na stronie głównej (http://localhost:4200/).
+ 
+Kroki testowe:
+1. W polu "Szukaj" wybierz opcję "Album".
+2. W polu tekstowym wprowadź frazę "the f".
+
+Oczekiwany rezultat: 
+Wyświetlone są co najmniej trzy karty albumów, których nazwy zawierają ciąg znaków "the f" (np. "The Foundation", "The Fame", "The Final Countdown").

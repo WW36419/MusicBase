@@ -1,0 +1,16 @@
+ID: TC017
+
+Tytuł:
+Logowanie do konta administratora
+
+Warunki początkowe:
+- Użytkownik jest wylogowany,
+- Aplikacja jest otwarta na stronie logowania (http://localhost:4200/login).
+
+Kroki testowe:
+1. Wpisz "admin@test.pl" w polu "Email".
+2. Wpisz "admin" w polu "Hasło".
+3. Kliknij w przycisk "Zaloguj".
+
+Oczekiwany rezultat:
+Następuje przekierowanie na stronę główną. W pasku nawigacyjnym widoczne są zakładki "Ulubione", "Wyloguj" i "Panel Administratora".
