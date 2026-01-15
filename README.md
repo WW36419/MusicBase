@@ -202,7 +202,7 @@ Powinien wyskoczyć okno Chrome pokazujący wszystkie wykonane testy na wsystkic
 
 ### Backend (Express)
 
-[Dokumentacja w Swagger](http://localhost:3100/api-docs)
+Uruchom "Backend" w Dockerze i otwórz [dokumentację API](http://localhost:3100/api-docs).
 
 
 ## Przypadki testowe dla testera manualnego
